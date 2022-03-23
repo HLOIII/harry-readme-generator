@@ -6,11 +6,12 @@ const renderTableOfContents = contentTable => {
         if (!item) {
             return '';
         } else {
-            listOfContent += `*[${item}](#${(item).toLowerCase()})`;
+            listOfContent += `* [${item}](#${(item).toLowerCase().split(' ').join('-')})
+        `;
         }
     });
     return `## Table of Contents
-    ${listOfContent}`;
+  ${listOfContent}`;
 }
 
 // create a function that returns installation
@@ -18,11 +19,10 @@ const renderInstallationSection = installation => {
     if (!installation) {
         return '';
     } else {
-        return `
-      Please see below for installation requirements:
-      \`\`\`
-      ${installation}
-      \`\`\``
+        return `## Installation
+  Please see below for installation requirements:
+  ${installation}
+  `
     }
 }
 
@@ -31,7 +31,8 @@ const renderUsageSection = usage => {
     if (!usage) {
         return '';
     } else {
-        return `${usage}`;
+        return `## Usage
+  ${usage}`;
     }
 }
 
@@ -40,7 +41,8 @@ const renderContributingSection = contributing => {
     if (!contributing) {
         return '';
     } else {
-        return `${contributing}`;
+        return `## Contributing
+  ${contributing}`;
     }
 }
 
@@ -49,7 +51,8 @@ const renderTestSection = tests => {
     if (!tests) {
         return '';
     } else {
-        return `${tests}`;
+        return `## Tests
+  ${tests}`;
     }
 }
 
@@ -58,9 +61,10 @@ const renderQuestionSection = (email, github) => {
     if (!email && !github) {
         return '';
     } else {
-        return `If you have any questions please use the following two links to contact me:
-      *[GitHub Account](https://github.com/${github})
-      *[Email Address](${email})`;
+        return `## Questions
+  If you have any questions please use the following two links to contact me:
+  * [GitHub Account](https://github.com/${github})
+  * [Email Address](${email})`;
     }
 }
 
@@ -71,7 +75,7 @@ const renderLicenseBadge = license => {
         return '';
     } else {
         return `
-      ![GitHub license badge](https://img.shields.io/badge/license-${license}-blue.svg)`;
+  ![GitHub license badge](https://img.shields.io/badge/license-${license}-blue.svg)`;
     }
 };
 
@@ -82,7 +86,7 @@ const renderLicenseLink = license => {
         return '';
     } else {
         return `
-      ![GitHub license](./license-${license}.txt)`
+  ![GitHub license](./utils/license-${license}.txt)`
     }
 };
 
@@ -92,8 +96,8 @@ const renderLicenseSection = license => {
     if (!license) {
         return '';
     } else {
-        return `
-      Please see the following link for license information: ${renderLicenseLink(license)}`
+        return `## License
+  Please see the following link for license information: ${renderLicenseLink(license)}`
     }
 };
 
@@ -104,6 +108,12 @@ const generateMarkdown = data => {
   ## Description
   ${data.description}
   ${renderTableOfContents(data.contentTable)}
+  ${renderInstallationSection(data.installation)}
+  ${renderUsageSection(data.usage)}
+  ${renderLicenseSection(data.license)}
+  ${renderContributingSection(data.contributing)}
+  ${renderTestSection(data.tests)}
+  ${renderQuestionSection(data.email, data.github)}
   `;
 };
 
