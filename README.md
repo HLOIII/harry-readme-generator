@@ -24,4 +24,4 @@ Please clone the repo and do the changes locally on your machine. When you are d
 ## Tests
 Run the following command "node index" multiple time in your terminal. Each time include or exclude some sections and checkout the results.
 
-![screenshot]utils/images/p-readme-g.JPG
+![screenshot](utils/images/p-readme-g.JPG)
