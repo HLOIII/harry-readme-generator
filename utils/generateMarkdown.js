@@ -7,7 +7,7 @@ const renderTableOfContents = contentTable => {
             return '';
         } else {
             listOfContent += `* [${item}](#${(item).toLowerCase().split(' ').join('-')})
-        `;
+  `;
         }
     });
     return `## Table of Contents
@@ -63,8 +63,8 @@ const renderQuestionSection = (email, github) => {
     } else {
         return `## Questions
   If you have any questions please use the following two links to contact me:
-  * [GitHub Account](https://github.com/${github})
-  * [Email Address](${email})`;
+  * https://github.com/${github}
+  * ${email}`;
     }
 }
 
@@ -86,7 +86,7 @@ const renderLicenseLink = license => {
         return '';
     } else {
         return `
-  ![GitHub license](./utils/license-${license}.txt)`
+  ![GitHub-license](https://raw.githubusercontent.com/sshahram/readme-generator/develop/utils/license-${license}.txt)`
     }
 };
 
