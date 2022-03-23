@@ -1,7 +1,8 @@
 // TODO: Include packages needed for this application
-
+const fs = require('fs');
 // TODO: Create an array of questions for user input
-const questions = () => {
+// TODO: Create a function to initialize app
+const init = () => {
     return inquirer.prompt([
         {
             type: 'input',
@@ -49,7 +50,7 @@ const questions = () => {
             type: 'checkbox',
             name: 'license',
             message: 'What type of license does your project have?',
-            choices: ['MIT License', 'GNU GPLv3', 'Apache License 2.0']
+            choices: ['MIT', 'GNU GPLv3', 'Apache 2.0']
 
         },
         {
@@ -76,10 +77,21 @@ const questions = () => {
 };
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) { }
+const writeToFile = fileContent => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/sample-readme.md', fileContent, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve({
+                ok: true,
+                message: 'File created!'
+            });
+        });
+    });
+};
 
-// TODO: Create a function to initialize app
-function init() { }
 
 // Function call to initialize app
 init();
