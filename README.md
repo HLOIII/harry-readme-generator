@@ -23,3 +23,5 @@ Please first install node.js and then run the following command into your termin
 Please clone the repo and do the changes locally on your machine. When you are done with the changes, create a pull request on the github repo.
 ## Tests
 Run the following command "node index" multiple time in your terminal. Each time include or exclude some sections and checkout the results.
+
+(./utils/images/p-readme-g.jpg)
