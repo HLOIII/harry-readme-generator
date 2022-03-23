@@ -5,13 +5,11 @@
 The main purpose of this project is to provide a tool for generating professional REAME.md file. Using this tool, users answer a series of questions about differnet sections of README. Their answers will be captured and displayed in a clean and professional README file.
 ## Table of Contents
 * [Description](#description)
-* [Table of Contents](#table-of-contents)
 * [Installation](#installation)
 * [Usage](#usage)
-* [License](#license)
 * [Contributing](#contributing)
 * [Tests](#tests)
-* [Questions](#questions)
+
 
 ## Installation
 Please see below for installation requirements:

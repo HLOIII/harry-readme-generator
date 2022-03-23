@@ -43,6 +43,7 @@ const init = () => {
             { name: 'License', checked: false },
             { name: 'Contributing', checked: false },
             { name: 'Tests', checked: false },
+            { name: 'Screenshots', checked: false },
             { name: 'Questions', checked: false }
             ]
         },
@@ -112,7 +113,7 @@ const init = () => {
         {
             type: 'input',
             name: 'github',
-            message: 'Enter your GitHub Username: (Required)',
+            message: 'Enter your GitHub Username:',
             when: ({ contentTable }) => {
                 if (contentTable.indexOf('Questions') > -1) {
                     return true;
@@ -132,8 +133,64 @@ const init = () => {
                     return false;
                 }
             }
-        }
+        },
     ])
+};
+
+// Questions about screenshots
+const promptScreenshots = screenshotData => {
+    console.log(`
+    ====================
+    Add a new screenshot
+    ====================`);
+    // if there is not screenshot array propert create one
+    if (!screenshotData.screenshotArr) {
+        screenshotData.screenshotArr = [];
+    }
+    return inquirer.prompt([
+        // Alt Text
+        {
+            type: 'input',
+            name: 'nameScreenshot',
+            message: 'What is the name of your screenshot?',
+        },
+        // Link
+        {
+            type: 'input',
+            name: 'linkScreenshot',
+            message: "Please provide the link to your screenshot: (Required)",
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the link for your screenshot!')
+                }
+            }
+        },
+        // description
+        {
+            type: 'input',
+            name: 'descriptionScreenshot',
+            message: 'Please enter a short description for your screenshot:'
+        },
+        // add screenshot
+        {
+            type: 'confirm',
+            name: 'confirmAddScreenshots',
+            message: 'Would you like to add another screenshot?',
+            default: false,
+        },
+
+    ])
+        // enable users to add more than one screenshot
+        .then(data => {
+            screenshotData.screenshotArr.push(data);
+            if (data.confirmAddScreenshots) {
+                return promptScreenshots(screenshotData);
+            } else {
+                return screenshotData;
+            }
+        });
 };
 
 // TODO: Create a function to write README file
@@ -155,6 +212,13 @@ const writeToFile = fileContent => {
 
 // Function call to initialize app
 init()
+    .then(response => {
+        if (response.contentTable.indexOf('Screenshots') > -1) {
+            return promptScreenshots(response);
+        } else {
+            return response;
+        }
+    })
     .then(answers => generateMarkdown(answers))
     .then(readmeGenerated => writeToFile(readmeGenerated))
     .catch(err => {
