@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
 // TODO: Create a function to initialize app
 const init = () => {
@@ -86,7 +87,7 @@ const init = () => {
         },
         {
             type: 'input',
-            name: 'contributions',
+            name: 'Contributing',
             message: 'Please provide guidelines on how to contribute to your project:',
             when: ({ contentTable }) => {
                 if (contentTable.indexOf('Contributing') > -1) {
@@ -155,4 +156,9 @@ const writeToFile = fileContent => {
 
 
 // Function call to initialize app
-init();
+init()
+    .then(answers => generateMarkdown(answers))
+    .then(readmeGenerated => writeToFile(readmeGenerated))
+    .catch(err => {
+        console.log(err);
+    });
